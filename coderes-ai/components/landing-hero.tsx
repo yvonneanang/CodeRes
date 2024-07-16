@@ -28,7 +28,7 @@ export const LandingHero = () => {
             </div>
 
             <div>
-                <Link href={"/dashboard"}>
+                <Link href={"/upload"}>
                     <Button variant="premium" className="md:text-md p-4 md:p-6 rounded-full font-semibold">
                         Try it Now!
                     </Button>

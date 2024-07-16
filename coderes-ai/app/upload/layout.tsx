@@ -1,4 +1,4 @@
-export default function DashboardLayout({
+export default function UploadLayout({
     children
 }: {
     children: React.ReactNode;
