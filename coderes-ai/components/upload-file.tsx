@@ -42,9 +42,9 @@ export const UploadFile = () => {
       <div className="space-y-12">
 
       <div className="border-b border-white-900/10 pb-12">         
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+        <div className="mt-10 mx-10 grid grid-cols-1 gap-x-6 gap-y-6">
 
-            <div className="col-start-2 col-span-4">
+            <div className="col-start-1 col-span-4">
               
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-silver-900/25 px-6 py-10">
                 <div className="text-center">
@@ -69,9 +69,9 @@ export const UploadFile = () => {
         </div>
       </div> 
 
-      <div className="border-b border-white-900/10 pb-12">
-         {pdfUrl && (
-          <>
+      {pdfUrl && (
+        <>
+          <div className="border-b border-white-900/10 pb-12">
             <div className="p-4">
                 <Link href={"/upload"}>
                     <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
@@ -79,22 +79,24 @@ export const UploadFile = () => {
                     </Button>
                 </Link>
             </div>
-            <div className="mt-4 w-full max-w-screen-lg">
+            <div className="mx-auto mt-0 w-full max-w-screen-lg">
               {/* <iframe 
               src={pdfUrl}
               className="w-full h-screen border-2 border-gray-300"
-              title="PDF Preview"></iframe> 
+              title="PDF Preview"></iframe> */}
+              <p className = "py-3">File Preview: </p>
               <embed
                 src= {pdfUrl}
                 type='application/pdf'
                 className="w-full h-screen border-2 border-gray-300"
                 style={{minHeight:'600px'}}
-                /> */}
-                <PDFViewer pdfURL={pdfUrl} />
+                />
+                
             </div>
-          </>
-         )}
-      </div>
+          </div>
+        </>
+      )}
+     
 
     </form>
   )
