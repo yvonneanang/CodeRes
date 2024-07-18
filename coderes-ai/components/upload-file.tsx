@@ -25,26 +25,31 @@ import ViewPdf from '@/components/view-pdf';
 
 export const UploadFile = () => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const router = useRouter();
-  console.log("This is the beginning, and this is the pdfUrl = ", pdfUrl);
+  // const router = useRouter();
+  // console.log("This is the beginning, and this is the pdfUrl = ", pdfUrl);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type == 'application/pdf'){
       const fileUrl = URL.createObjectURL(file);
       setPdfUrl(fileUrl);
-      if (fileUrl){
-        router.push(`/upload?pdfUrl=${encodeURIComponent(fileUrl)}`);
-      }
+      // if (fileUrl){
+      //   router.push(`/upload?pdfUrl=${encodeURIComponent(fileUrl)}`);
+      // }
     }
     else{
       alert('Please upload a valid PDF file.')
     }
   };
 
-  const handleFigurePagePdfView = () => {
+  // const handleFigurePagePdfView = () => {
+  //   if (pdfUrl){
+  //     router.push(`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`);
+  //   }
+  // }
+  const handleViewPdf = () => {
     if (pdfUrl){
-      router.push(`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`);
+      window.open(pdfUrl, '_blank');
     }
   }
 
@@ -87,16 +92,15 @@ export const UploadFile = () => {
           {/* <div className="border-b border-white-900/10 pb-12"></div> */}
           <div className="border-b border-white-900/10 pb-12">
             <div className="p-4">
-                {/* <Link href={"/figure-code"}> */}
-                    <Button variant="premium" onClick={() => {
-                      router.push(`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`)
-                    }} className="md:text-md p-4 md:p-4 rounded-md font-semibold">
+                <Link href={"/figure-code"}>
+                    <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold"
+                    onClick={handleViewPdf}>
                         Generate Code
                     </Button>
-                {/* </Link> */}
+                </Link>
             </div>
             <p className = "py-3">File Preview: </p>
-            <ViewPdf/>
+            <ViewPdf pdfUrl={pdfUrl}/>
           </div>
         </>
       )}
