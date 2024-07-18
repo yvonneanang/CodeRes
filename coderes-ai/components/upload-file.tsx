@@ -25,7 +25,7 @@ import ViewPdf from '@/components/view-pdf';
 
 export const UploadFile = () => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  // const router = useRouter();
+  const router = useRouter();
   // console.log("This is the beginning, and this is the pdfUrl = ", pdfUrl);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -47,11 +47,7 @@ export const UploadFile = () => {
   //     router.push(`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`);
   //   }
   // }
-  const handleViewPdf = () => {
-    if (pdfUrl){
-      window.open(pdfUrl, '_blank');
-    }
-  }
+
 
   
 
@@ -92,9 +88,9 @@ export const UploadFile = () => {
           {/* <div className="border-b border-white-900/10 pb-12"></div> */}
           <div className="border-b border-white-900/10 pb-12">
             <div className="p-4">
-                <Link href={"/figure-code"}>
-                    <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold"
-                    onClick={handleViewPdf}>
+                {/* <Link href={"/figure-code"}> */}
+                <Link href={`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`}>
+                    <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
                         Generate Code
                     </Button>
                 </Link>

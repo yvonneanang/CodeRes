@@ -2,7 +2,7 @@
 //import { useSearchParams } from "next/navigation";
 
 interface ViewPdfProp{
-    pdfUrl: string
+    pdfUrl: string;
 }
 export default function ViewPdf({pdfUrl}: ViewPdfProp){
     // const searchParams = useSearchParams();
