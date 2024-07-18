@@ -14,26 +14,39 @@
 */
 
 "use client";
-import { useState, useRef, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from "next/link";
-import PDFViewer from "tailwind-pdf-viewer";
+import { useRouter } from "next/navigation";
+
+// import PDFViewer from "tailwind-pdf-viewer";
 import "tailwind-pdf-viewer/style.css";
+import ViewPdf from '@/components/view-pdf';
 
 export const UploadFile = () => {
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  console.log("This is the beginning, and this is the pdfUrl = ", pdfUrl);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type == 'application/pdf'){
       const fileUrl = URL.createObjectURL(file);
       setPdfUrl(fileUrl);
+      if (fileUrl){
+        router.push(`/upload?pdfUrl=${encodeURIComponent(fileUrl)}`);
+      }
     }
     else{
       alert('Please upload a valid PDF file.')
     }
   };
+
+  const handleFigurePagePdfView = () => {
+    if (pdfUrl){
+      router.push(`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`);
+    }
+  }
 
   
 
@@ -41,7 +54,7 @@ export const UploadFile = () => {
     <form>
       <div className="space-y-12">
 
-      <div className="border-b border-white-900/10 pb-12">         
+      {/* <div className="border-b border-white-900/10 pb-12">          */}
         <div className="mt-10 mx-10 grid grid-cols-1 gap-x-6 gap-y-6">
 
             <div className="col-start-1 col-span-4">
@@ -67,32 +80,23 @@ export const UploadFile = () => {
             </div>
           </div>
         </div>
-      </div> 
+      {/* </div>  */}
 
       {pdfUrl && (
         <>
+          {/* <div className="border-b border-white-900/10 pb-12"></div> */}
           <div className="border-b border-white-900/10 pb-12">
             <div className="p-4">
-                <Link href={"/upload"}>
-                    <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
+                {/* <Link href={"/figure-code"}> */}
+                    <Button variant="premium" onClick={() => {
+                      router.push(`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`)
+                    }} className="md:text-md p-4 md:p-4 rounded-md font-semibold">
                         Generate Code
                     </Button>
-                </Link>
+                {/* </Link> */}
             </div>
-            <div className="mx-auto mt-0 w-full max-w-screen-lg">
-              {/* <iframe 
-              src={pdfUrl}
-              className="w-full h-screen border-2 border-gray-300"
-              title="PDF Preview"></iframe> */}
-              <p className = "py-3">File Preview: </p>
-              <embed
-                src= {pdfUrl}
-                type='application/pdf'
-                className="w-full h-screen border-2 border-gray-300"
-                style={{minHeight:'600px'}}
-                />
-                
-            </div>
+            <p className = "py-3">File Preview: </p>
+            <ViewPdf/>
           </div>
         </>
       )}
