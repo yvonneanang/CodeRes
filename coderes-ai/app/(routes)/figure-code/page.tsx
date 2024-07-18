@@ -8,9 +8,9 @@ export default function FigureCodePage(){
     const pdfUrl = searchParams.get('pdfUrl');
     console.log("This is view pdf, and the pdf url,", pdfUrl);
 
-    // if (!pdfUrl || typeof pdfUrl !== 'string'){
-    //     return <div>No PDF found</div>;
-    // }
+    if (!pdfUrl || typeof pdfUrl !== 'string'){
+        return <div>No PDF found</div>;
+    }
 
     return (
         <div className="h-full">
