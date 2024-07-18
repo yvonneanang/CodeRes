@@ -14,7 +14,7 @@ export default function ViewPdf({pdfUrl}: ViewPdfProp){
     // }
 
     return (
-        <div className="mx-auto mt-0 w-full max-w-screen-lg">
+        <div className="mx-auto mt-0 max-w-screen-lg">
               {/* <iframe 
               src={pdfUrl}
               className="w-full h-screen border-2 border-gray-300"

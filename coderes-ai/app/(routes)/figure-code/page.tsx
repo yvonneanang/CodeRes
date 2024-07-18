@@ -15,7 +15,10 @@ export default function FigureCodePage(){
     return (
         <div className="h-full">
             <Navbar/>
-            <ViewPdf pdfUrl={pdfUrl}/>
+            <div className ="">
+                <ViewPdf pdfUrl={pdfUrl}/>
+            </div>
+            
             <div className="text-white">Add a View pdf component, which is interactive</div>
             <div className="text-white">Add a drawer component for the code</div>
         </div>
