@@ -15,30 +15,30 @@
 
 "use client";
 import { useState, ChangeEvent } from 'react';
-import { Button } from '@/components/ui/button';
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-
+//import { useRouter } from "next/navigation";
 // import PDFViewer from "tailwind-pdf-viewer";
-import "tailwind-pdf-viewer/style.css";
-import ViewPdf from '@/components/view-pdf';
+//import "tailwind-pdf-viewer/style.css";
+
+import { Button } from '@/components/ui/button';
+import ViewFile from '@/components/view-file';
 
 export const UploadFile = () => {
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const router = useRouter();
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
+  // const router = useRouter();
   // console.log("This is the beginning, and this is the pdfUrl = ", pdfUrl);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file && file.type == 'application/pdf'){
+    if (file && (file.type == 'application/pdf' || file.type == 'image/png' || file.type == 'image/jpeg')){
       const fileUrl = URL.createObjectURL(file);
-      setPdfUrl(fileUrl);
+      setFileUrl(fileUrl);
       // if (fileUrl){
       //   router.push(`/upload?pdfUrl=${encodeURIComponent(fileUrl)}`);
       // }
     }
     else{
-      alert('Please upload a valid PDF file.')
+      alert('Please upload a valid PDF or image file.')
     }
   };
 
@@ -70,12 +70,12 @@ export const UploadFile = () => {
                       p-1">
                       <span>Upload a file</span>
                       <input id="file-upload" name="file-upload" type="file" className="sr-only" 
-                        accept="application/pdf" onChange={handleFileChange}
+                        accept="application/pdf, image/png, image/jpeg" onChange={handleFileChange}
                       />
                     </label>
                     <p className="p-1">or drag and drop</p>
                   </div>
-                  <p className="text-xs leading-5 text-gray-600 p-2">PDF up to 10MB</p>
+                  <p className="text-xs leading-5 text-gray-600 p-2">Image (PNG or JPEG) or PDF up to 10MB</p>
                 </div>
               </div>
             </div>
@@ -83,20 +83,20 @@ export const UploadFile = () => {
         </div>
       {/* </div>  */}
 
-      {pdfUrl && (
+      {fileUrl && (
         <>
           {/* <div className="border-b border-white-900/10 pb-12"></div> */}
           <div className="border-b border-white-900/10 pb-12">
             <div className="p-4">
                 {/* <Link href={"/figure-code"}> */}
-                <Link href={`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`}>
+                <Link href={`/figure-code?fileUrl=${encodeURIComponent(fileUrl)}`}>
                     <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
                         Generate Code
                     </Button>
                 </Link>
             </div>
             <p className = "py-3">File Preview: </p>
-            <ViewPdf pdfUrl={pdfUrl}/>
+            <ViewFile fileUrl={fileUrl}/>
           </div>
         </>
       )}

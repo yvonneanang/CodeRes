@@ -8,6 +8,7 @@ export default function Upload() {
     //<Button variant="destructive" size="lg">Click Me</Button>
     <div className="h-full">
       <Navbar/>
+      <div className="border border-b-0 border-gray-500"></div>
       <UploadHero/>
       
     </div>
