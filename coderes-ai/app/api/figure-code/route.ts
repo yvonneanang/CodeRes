@@ -3,10 +3,10 @@
 import * as fs from "fs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from "next";
+//import { NextApiRequest, NextApiResponse } from "next";
 import { URL, URLSearchParams } from "url";
 //import multer from 'multer';
-import { Formidable } from "formidable";
+//import { Formidable } from "formidable";
 
 // export const config = {
 //     api: {
@@ -36,17 +36,25 @@ async function fileToGenerativePart(file: Blob) {
 }
 
 export async function POST(
-    req: NextApiRequest,
+    req: Request,
 ) {
     try{
         
-        // const body = await req.formData(); 
-        // console.log("This is the body", body);
-        // const messages = body.get("json");
-        // const blob = body.get("file");
-        // console.log("this is the message", messages);
-        // const blob = body.file;
-        // console.log("this is the body, the messages/prompt and the blob", body, messages, blob);
+        const body = await req.body; 
+        if (!body){
+            return NextResponse.json("Request is null");
+        }
+        const JSONdata = body.json();
+        
+        
+        
+        console.log("This is the body", body);
+        console.log("this is its type: ", typeof(body));
+        // const messages = body.get('json');
+        // const blob = body.get('file');
+        // // console.log("this is the message", messages);
+        // // const blob = body.file;
+        // console.log("this is the body (formdata), the messages/prompt and the blob", body, messages, blob);
         // const messages = body.prompt;
         // //const fileUrl = body.fileUrl;
         // const blob = body.blob;
@@ -77,13 +85,13 @@ export async function POST(
         //or const data = await req.json();
         //const prompt = data.body;
 
-        const form = new Formidable();
-        const [fields, files] = await form.parse(req);
-        const jsonData = fields.json;
-        if(!jsonData){
-            return NextResponse.json("JSON data in the form is not defined");
-        }
-        const messages = JSON.parse(jsonData[0] as string);
+        // const form = new Formidable();
+        // const [fields, files] = await form.parse(req);
+        // const jsonData = fields.json;
+        // if(!jsonData){
+        //     return NextResponse.json("JSON data in the form is not defined");
+        // }
+        // const messages = JSON.parse(jsonData[0] as string);
         //const prompt = messages;
         // form.parse(req, (err, fields, files) => {
         //     if (err){
