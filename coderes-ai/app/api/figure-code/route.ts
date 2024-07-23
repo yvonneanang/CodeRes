@@ -4,7 +4,14 @@ import * as fs from "fs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 import { URL, URLSearchParams } from "url";
+//import multer from 'multer';
+//import { IncomingForm } from 'formidable';
 
+// export const config = {
+//     api: {
+//         bodyParser: false
+//     }
+// };
 
 // function fileToGenerativePart(path: fs.PathOrFileDescriptor , mimeType:string) {
 //     return {
@@ -33,12 +40,15 @@ export async function POST(
     try{
         
         const body = await req.json(); 
-        const messages = body.prompt;
-        //const fileUrl = body.fileUrl;
-        const blob = body.blob;
+        const messages = JSON.parse(body.json);
+        const blob = body.file;
+        console.log("this is the body, the messages/prompt and the blob", body, messages, blob);
+        // const messages = body.prompt;
+        // //const fileUrl = body.fileUrl;
+        // const blob = body.blob;
 
-        console.log("this is the body", body);
-        console.log("This is the prompt", messages);
+        // console.log("this is the body", body);
+        // console.log("This is the prompt", messages);
         //console.log("This is the type of fileUrl", typeof(fileUrl));
 
         //moving the following code to client side (page.tsx)
@@ -62,6 +72,14 @@ export async function POST(
 
         //or const data = await req.json();
         //const prompt = data.body;
+
+        // const form = new IncomingForm();
+        // form.parse(req, (err, fields, files) => {
+        //     if (err){
+        //         console.error("Error passing form:", err);
+
+        //     }
+        // })
         
 
         if (!process.env.GEMINI_API_KEY){

@@ -2,7 +2,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { URL, URLSearchParams } from "url";
+import { URL, URLSearchParams } from 'url';
 
 import { Navbar } from '@/components/navbar';
 import ViewFile from '@/components/view-file';
@@ -11,7 +11,7 @@ export default function FigureCodePage(){
     const searchParams = useSearchParams();
     const fileUrl = searchParams.get('fileUrl');
     const [output, setOutput] = useState("Code goes here...");
-    const [file, setFile] = useState();
+    
     console.log("This is the file url, ", fileUrl);
 
     if (fileUrl){
@@ -29,10 +29,18 @@ export default function FigureCodePage(){
 
     const generateText = async () => {
         try{
+
+            const jsonData = {prompt: prompt}; //the prompt
             
-            const blobUrl = new URL(fileUrl);
+            //const blobUrl = new URL(fileUrl);
+            const blobUrl = fileUrl;
             const blob_response = await fetch(blobUrl);
             const blob = await blob_response.blob();
+
+            //formdata for the jsonData and the blob
+            const formData = new FormData();
+            formData.append('json', JSON.stringify(jsonData));
+            formData.append('file', blob, 'upload-file.txts'); 
 
 
             const response = await fetch('/api/figure-code', {
@@ -42,7 +50,7 @@ export default function FigureCodePage(){
                 },
                 //body: JSON.stringify({prompt:prompt, fileUrl:fileUrl})
                 //body: JSON.stringify({prompt:prompt, blob:blob})
-                body: [JSON.stringify({prompt: prompt}), blob];
+                body: formData
             });
             const data = await response.json(); 
             setOutput(data.output);
