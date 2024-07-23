@@ -40,13 +40,15 @@ export async function POST(
         console.log("This is the prompt", messages);
         console.log("This is the type of fileUrl", typeof(fileUrl));
 
-        const blobUrl = new URL(fileUrl);
-        console.log("this is my new url, ", blobUrl);
-        const fileUploadUrl = blobUrl.pathname;
-        console.log("this is the path name", fileUploadUrl);
-
+        //moving the following code to client side (page.tsx)
         //fetch blob data from blob url, check if fetch is successful, extract the blob data from the response
-        // const blob_response = await fetch(fileUrl);
+        // const blobUrl = new URL(fileUrl);
+        // // console.log("this is my new url, ", blobUrl);
+        // // const fileUploadUrl = blobUrl.pathname;
+        // // console.log("this is the path name", fileUploadUrl);
+
+        // //const blob_response = await fetch(fileUrl); //fetch failed
+        // const blob_response = await fetch(blobUrl);
         // if (!blob_response.ok){
         //     return NextResponse.json({output: "Network response was not ok"});
         // }
@@ -86,15 +88,17 @@ export async function POST(
 
         //const fileInputEl = document.querySelector<HTMLEmbedElement>("input[type=file]");
         //const imageParts = await Promise.all([...fileInputEl.src].map(fileToGenerativePart));
-        const fileInputEl = document.querySelector<HTMLEmbedElement>("#pdfViewer");
-        console.log("fileInputEl", fileInputEl);
-        if (!fileInputEl){
-            return NextResponse.json({output: "Error with file input"});
 
-        }
-        const embed_src_response = await fetch(fileInputEl.src);
-        const embed_blob = await embed_src_response.blob()
-        const imageParts = await fileToGenerativePart(embed_blob);
+        // const fileInputEl = document.querySelector<HTMLEmbedElement>("#pdfViewer");
+        // console.log("fileInputEl", fileInputEl);
+        // if (!fileInputEl){
+        //     return NextResponse.json({output: "Error with file input"});
+
+        // }
+
+        //const embed_src_response = await fetch(fileInputEl.src);
+        //const embed_blob = await embed_src_response.blob()
+        const imageParts = await fileToGenerativePart(blob);
         
 
         const result = await model.generateContent([prompt, imageParts]);
@@ -109,6 +113,7 @@ export async function POST(
 
     catch (error){
         console.log("[FIGURE-CODE_ERROR]", error);
+        
         return NextResponse.json({output:"Internal error"}, {status: 500});
 
     }

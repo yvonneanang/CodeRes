@@ -9,36 +9,42 @@ import ViewFile from '@/components/view-file';
 export default function FigureCodePage(){
     const searchParams = useSearchParams();
     const fileUrl = searchParams.get('fileUrl');
+    const [output, setOutput] = useState("Code goes here...");
+    const [file, setFile] = useState();
     console.log("This is the file url, ", fileUrl);
+
     if (fileUrl){
         //const fileUpload = URL.createObjectURL(fileUrl);
         console.log("this is the type of the file url,", typeof(fileUrl));
     }
-
     
-
     if (!fileUrl || typeof fileUrl !== 'string'){
         return <div className= "text-white">No file found</div>;
     }
 
     const prompt = "Give me sample code to generate the plots in the uploaded image figure in python, and identify which code snippet belongs to which plot descriptively";
     console.log(fileUrl, prompt);
-    const [output, setOutput] = useState("Code goes here...");
+    
 
     const generateText = async () => {
         try{
+            
+            const blobUrl = new URL(fileUrl);
+            const blob_response = await fetch(blobUrl);
+            const blob = await blob_response.blob();
+
+
             const response = await fetch('/api/figure-code', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify({prompt:prompt, fileUrl:fileUrl})
+                //body: JSON.stringify({prompt:prompt, fileUrl:fileUrl})
+                body: JSON.stringify({prompt:prompt, blob:blob})
             });
             const data = await response.json(); 
             setOutput(data.output);
-            
-            
-            
+
             // if (response.ok){
             //     setOutput(data.output);
             // }
