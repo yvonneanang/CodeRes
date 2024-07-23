@@ -3,10 +3,10 @@
 import * as fs from "fs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-//import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { URL, URLSearchParams } from "url";
 //import multer from 'multer';
-import { IncomingForm } from "formidable";
+import { Formidable } from "formidable";
 
 // export const config = {
 //     api: {
@@ -36,14 +36,15 @@ async function fileToGenerativePart(file: Blob) {
 }
 
 export async function POST(
-    req: Request,
+    req: NextApiRequest,
 ) {
     try{
         
-        const body = await req.formData(); 
-        // const body = await req.formData();
-        // console.log("This is the request", body);
-        // const messages = JSON.parse(body.json);
+        // const body = await req.formData(); 
+        // console.log("This is the body", body);
+        // const messages = body.get("json");
+        // const blob = body.get("file");
+        // console.log("this is the message", messages);
         // const blob = body.file;
         // console.log("this is the body, the messages/prompt and the blob", body, messages, blob);
         // const messages = body.prompt;
@@ -76,7 +77,14 @@ export async function POST(
         //or const data = await req.json();
         //const prompt = data.body;
 
-        // const form = new IncomingForm();
+        const form = new Formidable();
+        const [fields, files] = await form.parse(req);
+        const jsonData = fields.json;
+        if(!jsonData){
+            return NextResponse.json("JSON data in the form is not defined");
+        }
+        const messages = JSON.parse(jsonData[0] as string);
+        //const prompt = messages;
         // form.parse(req, (err, fields, files) => {
         //     if (err){
         //         console.error("Error passing form:", err);
@@ -135,14 +143,14 @@ export async function POST(
         //const imageParts = await fileToGenerativePart(blob);
         
 
-        //const result = await model.generateContent([prompt, imageParts]);
-        const result = await model.generateContent([prompt]);
-        console.log("This is the result", result);
-        const response = await result.response;
-        const output = response.text();
+        // //const result = await model.generateContent([prompt, imageParts]);
+        // const result = await model.generateContent([prompt]);
+        // console.log("This is the result", result);
+        // const response = await result.response;
+        // const output = response.text();
         
-        return NextResponse.json({output: output});
-        //return NextResponse.json(responseorresult.data.choices[0].message);
+        // return NextResponse.json({output: output});
+        // //return NextResponse.json(responseorresult.data.choices[0].message);
 
     }
 
