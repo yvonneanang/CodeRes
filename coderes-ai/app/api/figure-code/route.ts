@@ -15,10 +15,11 @@ import { URL, URLSearchParams } from "url";
 //     };
 // }
 
-async function fileToGenerativePart(file) {
+async function fileToGenerativePart(file: Blob) {
     const base64EncodedDataPromise = new Promise((resolve) => {
         const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result.split(',')[1]);
+        
+        reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
         reader.readAsDataURL(file);
       });
       return {
@@ -83,11 +84,20 @@ export async function POST(
         //     //fileToGenerativePart("page-and-pen.jpg", "image/jpeg"),
         // ];
 
-        const fileInputEl = document.querySelector("input[type=file]");
+        //const fileInputEl = document.querySelector<HTMLEmbedElement>("input[type=file]");
+        //const imageParts = await Promise.all([...fileInputEl.src].map(fileToGenerativePart));
+        const fileInputEl = document.querySelector<HTMLEmbedElement>("#pdfViewer");
         console.log("fileInputEl", fileInputEl);
-        const imageParts = await Promise.all([...fileInputEl.files].map(fileToGenerativePart));
+        if (!fileInputEl){
+            return NextResponse.json({output: "Error with file input"});
 
-        const result = await model.generateContent([prompt, ...imageParts]);
+        }
+        const embed_src_response = await fetch(fileInputEl.src);
+        const embed_blob = await embed_src_response.blob()
+        const imageParts = await fileToGenerativePart(embed_blob);
+        
+
+        const result = await model.generateContent([prompt, imageParts]);
         console.log("This is the result", result);
         const response = await result.response;
         const output = response.text();

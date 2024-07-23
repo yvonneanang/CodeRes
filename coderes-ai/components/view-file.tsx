@@ -31,6 +31,7 @@ export default function ViewFile({fileUrl}: ViewFileProp){
             
             {<embed
                 // src = {decodeURIComponent(pdfUrl)}
+                id = "pdfViewer"
                 src = {fileUrl}
                 type='application/pdf'
                 className="rounded-2xl w-full h-screen border-3 border-gray-300"
@@ -38,6 +39,7 @@ export default function ViewFile({fileUrl}: ViewFileProp){
             /> &&
 
             <embed
+                id = "pdfViewer"    
                 src = {fileUrl}
                 type='image/png'
                 className="rounded-2xl w-full border-3 border-gray-300"
