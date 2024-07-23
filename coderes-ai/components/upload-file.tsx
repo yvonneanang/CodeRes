@@ -30,15 +30,16 @@ export const UploadFile = () => {
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file && (file.type == 'application/pdf' || file.type == 'image/png' || file.type == 'image/jpeg')){
+    if (file && (file.type == 'application/pdf' || file.type == 'image/png')){
       const fileUrl = URL.createObjectURL(file);
+      console.log("This is the fileurl in upload-file: ", fileUrl);
       setFileUrl(fileUrl);
       // if (fileUrl){
       //   router.push(`/upload?pdfUrl=${encodeURIComponent(fileUrl)}`);
       // }
     }
     else{
-      alert('Please upload a valid PDF or image file.')
+      alert('Please upload a valid PDF or image (PNG) file.')
     }
   };
 
@@ -70,12 +71,12 @@ export const UploadFile = () => {
                       p-1">
                       <span>Upload a file</span>
                       <input id="file-upload" name="file-upload" type="file" className="sr-only" 
-                        accept="application/pdf, image/png, image/jpeg" onChange={handleFileChange}
+                        accept="application/pdf, image/png" onChange={handleFileChange}
                       />
                     </label>
                     <p className="p-1">or drag and drop</p>
                   </div>
-                  <p className="text-xs leading-5 text-gray-600 p-2">Image (PNG or JPEG) or PDF up to 10MB</p>
+                  <p className="text-xs leading-5 text-gray-600 p-2">Image (PNG) or PDF up to 10MB</p>
                 </div>
               </div>
             </div>

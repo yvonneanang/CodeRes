@@ -1,5 +1,7 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { Navbar } from '@/components/navbar';
 import ViewFile from '@/components/view-file';
@@ -7,10 +9,47 @@ import ViewFile from '@/components/view-file';
 export default function FigureCodePage(){
     const searchParams = useSearchParams();
     const fileUrl = searchParams.get('fileUrl');
-    console.log("This is view file, and the pdf url,", fileUrl);
+    console.log("This is the file url, ", fileUrl);
+    if (fileUrl){
+        //const fileUpload = URL.createObjectURL(fileUrl);
+        console.log("this is the type of the file url,", typeof(fileUrl));
+    }
+
+    
 
     if (!fileUrl || typeof fileUrl !== 'string'){
-        return <div className= "text-white">No PDF found</div>;
+        return <div className= "text-white">No file found</div>;
+    }
+
+    const prompt = "Give me sample code to generate the plots in the uploaded image figure in python, and identify which code snippet belongs to which plot descriptively";
+    console.log(fileUrl, prompt);
+    const [output, setOutput] = useState("Code goes here...");
+
+    const generateText = async () => {
+        try{
+            const response = await fetch('/api/figure-code', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({prompt:prompt, fileUrl:fileUrl})
+            });
+            const data = await response.json(); 
+            setOutput(data.output);
+            
+            
+            
+            // if (response.ok){
+            //     setOutput(data.output);
+            // }
+            // else{
+            //     setOutput(data.error);
+            // }
+
+        }
+        catch(error){
+            console.error(error);
+        }
     }
 
     return (
@@ -27,7 +66,17 @@ export default function FigureCodePage(){
                     <div className = "col-start-1 col-span-4 justify-center">
                         <ViewFile fileUrl={fileUrl}/>
                     </div>
-                <div className="text-white">Add stuff here for the code - React markdown</div>
+                    <div className="text-white">
+                        {/* <ScrollArea className="rounded-md border p-4">
+                            <div>
+                                Code and message content will go here
+                            </div>
+
+                        </ScrollArea> */}
+                        <p onClick={generateText}>{output}</p>
+                        <p>Hmm...</p>
+
+                    </div>
                 </div>
 
             </div>
