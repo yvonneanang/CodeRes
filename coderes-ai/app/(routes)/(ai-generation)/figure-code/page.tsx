@@ -2,6 +2,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { URL, URLSearchParams } from "url";
 
 import { Navbar } from '@/components/navbar';
 import ViewFile from '@/components/view-file';
@@ -40,7 +41,8 @@ export default function FigureCodePage(){
                     'Content-type': 'application/json'
                 },
                 //body: JSON.stringify({prompt:prompt, fileUrl:fileUrl})
-                body: JSON.stringify({prompt:prompt, blob:blob})
+                //body: JSON.stringify({prompt:prompt, blob:blob})
+                body: [JSON.stringify({prompt: prompt}), blob];
             });
             const data = await response.json(); 
             setOutput(data.output);

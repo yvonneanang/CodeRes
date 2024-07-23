@@ -34,11 +34,12 @@ export async function POST(
         
         const body = await req.json(); 
         const messages = body.prompt;
-        const fileUrl = body.fileUrl;
+        //const fileUrl = body.fileUrl;
+        const blob = body.blob;
 
         console.log("this is the body", body);
         console.log("This is the prompt", messages);
-        console.log("This is the type of fileUrl", typeof(fileUrl));
+        //console.log("This is the type of fileUrl", typeof(fileUrl));
 
         //moving the following code to client side (page.tsx)
         //fetch blob data from blob url, check if fetch is successful, extract the blob data from the response
