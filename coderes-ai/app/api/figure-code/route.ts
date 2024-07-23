@@ -3,9 +3,10 @@
 import * as fs from "fs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
+//import { NextApiRequest, NextApiResponse } from "next";
 import { URL, URLSearchParams } from "url";
 //import multer from 'multer';
-//import { IncomingForm } from 'formidable';
+import { IncomingForm } from "formidable";
 
 // export const config = {
 //     api: {
@@ -39,10 +40,12 @@ export async function POST(
 ) {
     try{
         
-        const body = await req.json(); 
-        const messages = JSON.parse(body.json);
-        const blob = body.file;
-        console.log("this is the body, the messages/prompt and the blob", body, messages, blob);
+        const body = await req.formData(); 
+        // const body = await req.formData();
+        // console.log("This is the request", body);
+        // const messages = JSON.parse(body.json);
+        // const blob = body.file;
+        // console.log("this is the body, the messages/prompt and the blob", body, messages, blob);
         // const messages = body.prompt;
         // //const fileUrl = body.fileUrl;
         // const blob = body.blob;
@@ -77,8 +80,21 @@ export async function POST(
         // form.parse(req, (err, fields, files) => {
         //     if (err){
         //         console.error("Error passing form:", err);
+        //         return NextResponse.json("Error with form", {status: 500});
 
         //     }
+
+        //     //parse the prompt string
+        //     const jsonData = fields.json;
+        //     if (!jsonData){
+        //         return NextResponse.json("json data is not defined");
+        //     }
+        //     const messages = JSON.parse(jsonData[0] as string);
+
+        //     const prompt = messages;
+        //     console.log(prompt);
+
+
         // })
         
 
@@ -86,9 +102,8 @@ export async function POST(
             return NextResponse.json({output:"Gemini API Key not configured."}, { status: 500 });
         }
 
-        //might not need this
         if (!messages){
-            return NextResponse.json({output:"Prompt is required"}, { status: 400 });
+            return NextResponse.json({output: "Prompt is required"}, { status: 400 });
         }
 
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -117,10 +132,11 @@ export async function POST(
 
         //const embed_src_response = await fetch(fileInputEl.src);
         //const embed_blob = await embed_src_response.blob()
-        const imageParts = await fileToGenerativePart(blob);
+        //const imageParts = await fileToGenerativePart(blob);
         
 
-        const result = await model.generateContent([prompt, imageParts]);
+        //const result = await model.generateContent([prompt, imageParts]);
+        const result = await model.generateContent([prompt]);
         console.log("This is the result", result);
         const response = await result.response;
         const output = response.text();
