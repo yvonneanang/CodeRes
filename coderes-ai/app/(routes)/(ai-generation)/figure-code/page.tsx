@@ -45,6 +45,11 @@ export default function FigureCodePage(){
                 reader.readAsDataURL(blob);
               });
 
+            const promise = await base64EncodedDataPromise;
+
+            console.log("This is the promise, ", promise);
+            console.log("This is the type of the promise, ", typeof(promise));
+
 
 
             //formdata for the jsonData and the blob
@@ -52,7 +57,7 @@ export default function FigureCodePage(){
             //formData.append('prompt', JSON.stringify(jsonData));
             formData.append('prompt', prompt);
             formData.append('file', blob);
-            formData.append('generative-part', await base64EncodedDataPromise); 
+            formData.append('promise-string', promise); 
             //console.log("This is the formData", formData, formData.get('json'), formData.get('file'));
 
 

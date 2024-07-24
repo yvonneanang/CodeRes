@@ -56,7 +56,7 @@ export async function POST(
 
         const messages = body.get('prompt') as string;
         const file = body.get('file') as File;
-        const base64EncodedDataPromise = body.get('generativepart') as string;
+        const base64EncodedDataPromise = body.get('promise-string') as string;
         //const base64EncodedDataString = body.get('generativepart') as string;
         //const base64EncodedDataPromise = new Promise<string>(base64EncodedDataString);
         console.log("this is the body (formdata), the messages/prompt and the blob", body, messages, file);
