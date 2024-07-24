@@ -2,7 +2,7 @@
 //dotenv.config();
 import * as fs from "fs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 //import { NextApiRequest, NextApiResponse } from "next";
 import { URL, URLSearchParams } from "url";
 //import multer from 'multer';
@@ -36,16 +36,17 @@ async function fileToGenerativePart(file: Blob) {
 }
 
 export async function POST(
-    req: Request,
+    req: NextRequest,
 ) {
     try{
         
-        const body = await req.body; 
+        const body = await req.formData(); 
         if (!body){
             return NextResponse.json("Request is null");
         }
-        const JSONdata = body.json();
-        
+        //const JSONdata = body.json();
+       
+    
         
         
         console.log("This is the body", body);
