@@ -23,7 +23,7 @@ import { URL, URLSearchParams } from "url";
 //     };
 // }
 
-async function fileToGenerativePart(file: Blob) {
+async function fileToGenerativePart(file: any) {
     const base64EncodedDataPromise = new Promise((resolve) => {
         const reader = new FileReader();
         
@@ -44,18 +44,12 @@ export async function POST(
         if (!body){
             return NextResponse.json("Request is null");
         }
-        //const JSONdata = body.json();
-       
-    
-        
-        
-        console.log("This is the body", body);
-        console.log("this is its type: ", typeof(body));
-        // const messages = body.get('json');
-        // const blob = body.get('file');
-        // // console.log("this is the message", messages);
-        // // const blob = body.file;
-        // console.log("this is the body (formdata), the messages/prompt and the blob", body, messages, blob);
+
+        const messages = body.get('prompt');
+        const file = body.get('file');
+        console.log("this is the body (formdata), the messages/prompt and the blob", body, messages, file);
+        console.log("This is the type of message,", typeof(messages));
+        console.log("This is the type of file,", typeof(file));
         // const messages = body.prompt;
         // //const fileUrl = body.fileUrl;
         // const blob = body.blob;
@@ -123,6 +117,10 @@ export async function POST(
             return NextResponse.json({output: "Prompt is required"}, { status: 400 });
         }
 
+        if (!file){
+            return NextResponse.json({output:"File is not configured"}, {status: 400});
+        }
+
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
@@ -149,16 +147,15 @@ export async function POST(
 
         //const embed_src_response = await fetch(fileInputEl.src);
         //const embed_blob = await embed_src_response.blob()
-        //const imageParts = await fileToGenerativePart(blob);
+        const imageParts = await fileToGenerativePart(file);
         
 
-        // //const result = await model.generateContent([prompt, imageParts]);
-        // const result = await model.generateContent([prompt]);
-        // console.log("This is the result", result);
-        // const response = await result.response;
-        // const output = response.text();
+        const result = await model.generateContent([prompt, ...imageParts]);
+        console.log("This is the result", result);
+        const response = await result.response;
+        const output = response.text();
         
-        // return NextResponse.json({output: output});
+        return NextResponse.json({output: output});
         // //return NextResponse.json(responseorresult.data.choices[0].message);
 
     }

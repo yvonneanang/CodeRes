@@ -30,7 +30,7 @@ export default function FigureCodePage(){
     const generateText = async () => {
         try{
 
-            const jsonData = {prompt: prompt}; //the prompt
+            //const jsonData = {prompt: prompt}; //the prompt
             
             //const blobUrl = new URL(fileUrl);
             const blobUrl = fileUrl;
@@ -39,7 +39,8 @@ export default function FigureCodePage(){
 
             //formdata for the jsonData and the blob
             const formData = new FormData();
-            formData.append('json', JSON.stringify(jsonData));
+            //formData.append('prompt', JSON.stringify(jsonData));
+            formData.append('prompt', prompt);
             formData.append('file', blob, 'upload-file.png'); 
             console.log("This is the formData", formData, formData.get('json'), formData.get('file'));
 
