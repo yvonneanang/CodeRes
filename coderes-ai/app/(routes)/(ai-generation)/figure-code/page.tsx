@@ -25,7 +25,7 @@ export default function FigureCodePage(){
 
     const prompt = "Give me sample code to generate the plots in the uploaded image figure in python, and identify which code snippet belongs to which plot descriptively";
     //console.log(fileUrl, prompt);
-    
+
 
     const generateText = async () => {
         try{
@@ -37,12 +37,23 @@ export default function FigureCodePage(){
             const blob_response = await fetch(blobUrl);
             const blob = await blob_response.blob();
 
+            //step 1 of turning the file into a generative part for GenerateContent()
+            const base64EncodedDataPromise = new Promise<string>((resolve) => {
+                const reader = new FileReader();
+                
+                reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+                reader.readAsDataURL(blob);
+              });
+
+
+
             //formdata for the jsonData and the blob
             const formData = new FormData();
             //formData.append('prompt', JSON.stringify(jsonData));
             formData.append('prompt', prompt);
-            formData.append('file', blob, 'upload-file.png'); 
-            console.log("This is the formData", formData, formData.get('json'), formData.get('file'));
+            formData.append('file', blob);
+            formData.append('generative-part', await base64EncodedDataPromise); 
+            //console.log("This is the formData", formData, formData.get('json'), formData.get('file'));
 
 
             const response = await fetch('/api/figure-code', {
