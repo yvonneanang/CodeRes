@@ -1,17 +1,3 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 
 "use client";
 import { useState, ChangeEvent } from 'react';
@@ -92,7 +78,7 @@ export const UploadFile = () => {
                 {/* <Link href={"/figure-code"}> */}
                 <Link href={`/figure-code?fileUrl=${encodeURIComponent(fileUrl)}`}>
                     <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
-                        Generate Code
+                        Get Code!
                     </Button>
                 </Link>
             </div>

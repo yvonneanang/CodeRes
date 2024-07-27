@@ -1,16 +1,21 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { URL, URLSearchParams } from 'url';
+import Link from 'next/link';
 
 import { Navbar } from '@/components/navbar';
 import ViewFile from '@/components/view-file';
+import { Button } from '@/components/ui/button';
+import { Empty } from '@/components/empty';
+import { Loader } from '@/components/loader';
+import ReactMarkdown from 'react-markdown';
 
 export default function FigureCodePage(){
     const searchParams = useSearchParams();
     const fileUrl = searchParams.get('fileUrl');
-    const [output, setOutput] = useState("Code goes here...");
+    const [output, setOutput] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    //const instruction = "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations.";
     const prompt = "Give me sample code to generate the plots in the uploaded image figure in python, and identify which code snippet belongs to which plot descriptively";
     
     if (!fileUrl || typeof fileUrl != 'string'){
@@ -19,6 +24,8 @@ export default function FigureCodePage(){
 
 
     const generateText = async () => {
+        setIsLoading(true);
+        setOutput("");
         try{
             
             const blobUrl = fileUrl;
@@ -48,11 +55,13 @@ export default function FigureCodePage(){
             });
             const data = await response.json(); 
             setOutput(data.output);
+            
 
         }
         catch(error){
             console.error(error);
         }
+        setIsLoading(false);
     }
 
     return (
@@ -60,18 +69,49 @@ export default function FigureCodePage(){
             <Navbar/>
             <div className="border border-b-0 border-gray-500"></div>
 
-            <div>
-                <div className="py-3 text-white">Upload New File Bar or Card</div>
+            <div className = "text-white font-bold py-3">
+                <Link href="/upload">
+                    <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
+                        Upload New File
+                    </Button>
+                </Link>
 
-                <p className = "py-3 text-white font-bold">Name of File: </p>
+                
+                <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold" 
+                    onClick={generateText}
+                    disabled={isLoading}>
+                        Generate Code
+                </Button>
+
+                <p className = "py-3">Name of File: </p>
 
                 <div className ="grid grid-cols-7 gap-2 p-3 border rounded-2xl border-gray-400">
                     <div className = "col-span-4">
                         <ViewFile fileUrl={fileUrl}/>
                     </div>
-                    <div className="text-white col-span-3">
-                        {}
-                        <p onClick={generateText}>{output}</p>
+                    <div className="text-black col-span-3">
+                        {isLoading && (
+                            <div className = "p-8 rounded-lg w-full flex items-center justify-center bg-muted">
+                                <Loader/>
+                            </div>
+                        )}
+                        {output.length == 0 && !isLoading && (
+                            <Empty label="Code goes here..."/>
+                        )}
+                        
+                        <div className = "p-8 w-full flex items-start gap-x-8 rounded-lg border border-black/10 bg-muted">
+                            <ReactMarkdown
+                            components={{
+                                pre: ({node, ...props}) =>(
+                                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                                        <pre {...props}/>
+                                    </div>
+                                )
+                            }}>
+                                {output || ""}
+                            </ReactMarkdown>
+                        </div>
+                        
                         
 
                     </div>
