@@ -10,12 +10,16 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.15.0",
+    "@material-tailwind/react": "^2.1.9",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-popover": "^1.1.1",
     "@radix-ui/react-scroll-area": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@tailwindcss/forms": "^0.5.7",
     "@types/multer": "^1.4.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "cmdk": "^1.0.0",
     "formidable": "^3.5.1",
     "lucide-react": "^0.408.0",
     "multer": "^1.4.5-lts.1",
@@ -26,7 +30,8 @@
     "tailwind-merge": "^2.4.0",
     "tailwind-pdf-viewer": "^0.1.5",
     "tailwindcss-animate": "^1.0.7",
-    "typewriter-effect": "^2.21.0"
+    "typewriter-effect": "^2.21.0",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@types/formidable": "^3.4.5",

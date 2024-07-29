@@ -1,25 +1,35 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { FileImage, FileCode2 } from 'lucide-react';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+
 
 import { Navbar } from '@/components/navbar';
 import ViewFile from '@/components/view-file';
 import { Button } from '@/components/ui/button';
 import { Empty } from '@/components/empty';
 import { Loader } from '@/components/loader';
-import ReactMarkdown from 'react-markdown';
+import CopyButton from '@/components/ui/copy-button';
+
 
 export default function FigureCodePage(){
     const searchParams = useSearchParams();
     const fileUrl = searchParams.get('fileUrl');
     const [output, setOutput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    //const instruction = "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations.";
-    const prompt = "Give me sample code to generate the plots in the uploaded image figure in python, and identify which code snippet belongs to which plot descriptively";
-    
+    const [language, setLanguage] = useState("python");
+    //const base_instruction = "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations.";
+    const question = `Give me sample code to generate the plots in the uploaded image figure in ${language} and identify which code snippet belongs to which plot descriptively`;
+    const prompt = question;
+
     if (!fileUrl || typeof fileUrl != 'string'){
         return <div className= "text-white">No file found</div>;
+    }
+
+    const handleLanguageChange = (language_value: string) => {
+        setLanguage(language_value);
     }
 
 
@@ -70,25 +80,35 @@ export default function FigureCodePage(){
             <div className="border border-b-0 border-gray-500"></div>
 
             <div className = "text-white font-bold py-3">
-                <Link href="/upload">
-                    <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
-                        Upload New File
+                <div className="flex flex-row items-center justify-center">
+                    <Link href="/upload" className="p-2">
+                        <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
+                            Upload New File
+                        </Button>
+                    </Link>
+                    <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold" 
+                        onClick={generateText}
+                        disabled={isLoading}>
+                            Generate Code
                     </Button>
-                </Link>
+
+                </div>
+                
 
                 
-                <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold" 
-                    onClick={generateText}
-                    disabled={isLoading}>
-                        Generate Code
-                </Button>
-
-                <p className = "py-3">Name of File: </p>
-
                 <div className ="grid grid-cols-7 gap-2 p-3 border rounded-2xl border-gray-400">
+                    <p className = "p-2 col-span-4 flex flex-row"> <FileImage/> File: </p>
+                    <p className = "p-2 col-span-2 flex flex-row">
+                         <FileCode2/> 
+                         Python </p>
+                    <div className="col-span-1 flex flex-row">
+                        <CopyButton copyInput={output}/>
+                    </div>
+
                     <div className = "col-span-4">
                         <ViewFile fileUrl={fileUrl}/>
                     </div>
+                    
                     <div className="text-black col-span-3">
                         {isLoading && (
                             <div className = "p-8 rounded-lg w-full flex items-center justify-center bg-muted">
@@ -99,6 +119,8 @@ export default function FigureCodePage(){
                             <Empty label="Code goes here..."/>
                         )}
                         
+                        {/* <div className = "p-8 w-full flex items-start gap-x-8 rounded-lg border border-black/10 bg-muted"> */}
+                        {!isLoading && output.length !=0 && (
                         <div className = "p-8 w-full flex items-start gap-x-8 rounded-lg border border-black/10 bg-muted">
                             <ReactMarkdown
                             components={{
@@ -106,11 +128,18 @@ export default function FigureCodePage(){
                                     <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
                                         <pre {...props}/>
                                     </div>
+                                ), 
+                                //distinguish codesnippets from explanation
+                                code: ({node, ...props}) => (
+                                    <code className="bg-black/10 rounded-lg p-1"
+                                    {...props}/>
                                 )
-                            }}>
+                            }}
+                            className = "text-sm overflow-hidden leading-7"
+                            >
                                 {output || ""}
                             </ReactMarkdown>
-                        </div>
+                        </div>)}
                         
                         
 

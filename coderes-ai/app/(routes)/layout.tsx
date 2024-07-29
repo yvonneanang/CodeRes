@@ -9,7 +9,6 @@ export default function UploadLayout({
             <div className="mx-auto max-w-screen-xl h-full w-full">
                 {children}
             </div>
-
         </main>
     )
 
