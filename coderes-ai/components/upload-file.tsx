@@ -1,18 +1,13 @@
-
 "use client";
 import { useState, ChangeEvent } from 'react';
 import Link from "next/link";
-//import { useRouter } from "next/navigation";
-// import PDFViewer from "tailwind-pdf-viewer";
-//import "tailwind-pdf-viewer/style.css";
 
 import { Button } from '@/components/ui/button';
 import ViewFile from '@/components/view-file';
 
 export const UploadFile = () => {
   const [fileUrl, setFileUrl] = useState<string | null>(null);
-  // const router = useRouter();
-  // console.log("This is the beginning, and this is the pdfUrl = ", pdfUrl);
+
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -20,29 +15,17 @@ export const UploadFile = () => {
       const fileUrl = URL.createObjectURL(file);
       console.log("This is the fileurl in upload-file: ", fileUrl);
       setFileUrl(fileUrl);
-      // if (fileUrl){
-      //   router.push(`/upload?pdfUrl=${encodeURIComponent(fileUrl)}`);
-      // }
     }
     else{
       alert('Please upload a valid PDF or image (PNG) file.')
     }
   };
 
-  // const handleFigurePagePdfView = () => {
-  //   if (pdfUrl){
-  //     router.push(`/figure-code?pdfUrl=${encodeURIComponent(pdfUrl)}`);
-  //   }
-  // }
-
-
-  
 
   return (
     <form>
       <div className="space-y-12">
 
-      {/* <div className="border-b border-white-900/10 pb-12">          */}
         <div className="mt-10 mx-10 grid grid-cols-1 gap-x-6 gap-y-6">
 
             <div className="col-start-1 col-span-4">
@@ -68,14 +51,11 @@ export const UploadFile = () => {
             </div>
           </div>
         </div>
-      {/* </div>  */}
 
       {fileUrl && (
         <>
-          {/* <div className="border-b border-white-900/10 pb-12"></div> */}
           <div className="border-b border-white-900/10 pb-12">
             <div className="p-4">
-                {/* <Link href={"/figure-code"}> */}
                 <Link href={`/figure-code?fileUrl=${encodeURIComponent(fileUrl)}`}>
                     <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
                         Get Code!

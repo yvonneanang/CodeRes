@@ -5,13 +5,13 @@ import { FileImage, FileCode2 } from 'lucide-react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 
-
 import { Navbar } from '@/components/navbar';
 import ViewFile from '@/components/view-file';
 import { Button } from '@/components/ui/button';
 import { Empty } from '@/components/empty';
 import { Loader } from '@/components/loader';
 import CopyButton from '@/components/ui/copy-button';
+import { ComboBox } from '@/components/combo-box';
 
 
 export default function FigureCodePage(){
@@ -30,8 +30,8 @@ export default function FigureCodePage(){
 
     const handleLanguageChange = (language_value: string) => {
         setLanguage(language_value);
+        generateText();
     }
-
 
     const generateText = async () => {
         setIsLoading(true);
@@ -91,16 +91,20 @@ export default function FigureCodePage(){
                         disabled={isLoading}>
                             Generate Code
                     </Button>
-
                 </div>
                 
-
                 
                 <div className ="grid grid-cols-7 gap-2 p-3 border rounded-2xl border-gray-400">
                     <p className = "p-2 col-span-4 flex flex-row"> <FileImage/> File: </p>
-                    <p className = "p-2 col-span-2 flex flex-row">
+                    <div className = "p-2 col-span-1 flex flex-row">
                          <FileCode2/> 
-                         Python </p>
+                         Code:
+                         {/* <ComboBox onLanguageChange={handleLanguageChange}/> */}
+                    </div>
+                    <div className="col-span-1 flex flex-row">
+                        <ComboBox onLanguageChange={handleLanguageChange}/>
+                    </div>
+                    
                     <div className="col-span-1 flex flex-row">
                         <CopyButton copyInput={output}/>
                     </div>
@@ -140,7 +144,6 @@ export default function FigureCodePage(){
                                 {output || ""}
                             </ReactMarkdown>
                         </div>)}
-                        
                         
 
                     </div>
