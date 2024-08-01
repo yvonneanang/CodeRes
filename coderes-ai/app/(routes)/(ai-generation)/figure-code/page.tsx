@@ -125,11 +125,11 @@ export default function FigureCodePage(){
                         
                         {/* <div className = "p-8 w-full flex items-start gap-x-8 rounded-lg border border-black/10 bg-muted"> */}
                         {!isLoading && output.length !=0 && (
-                        <div className = "p-8 w-full flex items-start gap-x-8 rounded-lg border border-black/10 bg-muted">
+                        <div className = "p-3 w-full flex items-start gap-x-8 rounded-lg border border-black/10 bg-muted">
                             <ReactMarkdown
                             components={{
                                 pre: ({node, ...props}) =>(
-                                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                                    <div className="overflow-auto w-full m-2 bg-black/10 p-2 rounded-lg">
                                         <pre {...props}/>
                                     </div>
                                 ), 
