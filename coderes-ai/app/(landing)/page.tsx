@@ -12,7 +12,7 @@ export default function LandingPage(){
             <div className = "rounded-lg">
                 <FeaturesGrid/>
             </div>
-            <div className="rounded-md">
+            <div className ="text-gray-300">
                 <Footer/>
 
             </div>

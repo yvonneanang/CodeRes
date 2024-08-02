@@ -21,6 +21,7 @@ export type Theme =
   | "luxury"
   | "dracula"
   | "night"
+  | "coderes"
   | "";
 
 export interface ConfigProps {
