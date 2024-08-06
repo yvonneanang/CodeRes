@@ -1,32 +1,45 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
+import Image from "next/image";
 
 const features = [
   {
-    title: "Collect user feedback",
+    title: "Simple Upload",
     description:
-      "Use your Insighto's board to let users submit features they want.",
-    styles: "bg-primary text-primary-content",
+      "Upload a picture of your figure of interest",
+    //styles: "bg-primary text-primary-content",
+    //styles: "bg-base-100 text-base-content",
+    styles: "bg-gradient-to-r from-violet-700 to-pink-700",
     demo: (
       <div className="overflow-hidden h-full flex items-stretch">
         <div className="w-full translate-x-12 bg-base-200 rounded-t-box h-full p-6">
           <p className="font-medium uppercase tracking-wide text-base-content/60 text-sm mb-3">
-            Suggest a feature
+            Upload a screenshot
           </p>
           <div className="relative textarea py-4 h-full mr-12 bg-base-200 group-hover:bg-base-100 group-hover:border-base-content/10 text-base-content">
             <div className="absolute left-4 top-4 group-hover:hidden flex items-center ">
-              <span>Notifica</span>
+              <span>Figure:</span>
               <span className="w-[2px] h-6 bg-primary animate-pulse"></span>
             </div>
-            <div className="opacity-0 group-hover:opacity-100 duration-500">
-              Notifications should be visible only on certain pages.
+            {/* <div className="opacity-0 group-hover:opacity-100 duration-500">
+              Figure: should be visible only on certain pages.
+            </div> */}
+            <div className="opacity-0 group-hover:opacity-100 duration-1000">
+              <Image 
+                    className="rounded-md"
+                    width={600}
+                    height={350}
+                    //fill
+                    alt="CodeRes Logo"
+                    src="/paper-fig-1-crop.png"
+              />
             </div>
-            <div className="opacity-0 group-hover:opacity-100 duration-1000 flex items-center gap-0.5">
+            {/* <div className="opacity-0 group-hover:opacity-100 duration-1000 flex items-center gap-0.5">
               <span>Terms & privacy pages don&apos;t need them</span>
               <span className="w-[2px] h-6 bg-primary animate-pulse"></span>
-            </div>
+            </div> */}
             <button className="btn shadow-lg btn-primary absolute right-4 bottom-6 opacity-0 group-hover:opacity-100 duration-1000">
-              Submit
+              Upload
             </button>
           </div>
         </div>
@@ -34,9 +47,10 @@ const features = [
     ),
   },
   {
-    title: "Prioritize features",
+    title: "Generate code for multiple plots in a single figure",
     description: "Users upvote features they want. You know what to ship next.",
     styles: "md:col-span-2 bg-base-300 text-base-content",
+    //styles: "md:col-span-2 bg-gradient-to-r from-purple-700 to-pink-700",
     demo: (
       <div className="px-6 max-w-[600px] flex flex-col gap-4 overflow-hidden">
         {[
@@ -92,7 +106,7 @@ const features = [
     ),
   },
   {
-    title: "Your brand, your board",
+    title: "Get code in multiple languages",
     description: "Customize your Insighto board with 7 themes.",
     styles: "md:col-span-2 bg-base-100 text-base-content",
     demo: (
@@ -183,8 +197,8 @@ const features = [
     ),
   },
   {
-    title: "Discover new ideas",
-    description: "Users can chat and discuss features.",
+    title: "Succint accompanying explanations",
+    description: "Obtain succint explanations for each piece of code related to a particular plot",
     styles: "bg-neutral text-neutral-content",
     demo: (
       <div className="text-neutral-content px-6 space-y-4">
@@ -242,9 +256,10 @@ export const FeaturesGrid = () => {
   return (
     <section className="flex justify-center items-center w-full bg-base-200/50 text-base-content py-20 lg:py-32">
       <div className="flex flex-col max-w-[82rem] gap-16 md:gap-20 px-4">
-        <h2 className="max-w-3xl font-black text-4xl md:text-6xl tracking-[-0.01em]">
+        <h2 className="max-w-3xl font-black text-4xl md:text-6xl tracking-[-0.01em] ">
           Generate code with a  <br /> {" "}
-          <span className="underline decoration-dashed underline-offset-8 decoration-base-300">
+          {/* <span className="underline decoration-dashed underline-offset-8 decoration-slate-300"> */}
+          <span className="bg-gradient-to-r from-blue-500 via-violet-500 to-pink-500 text-transparent bg-clip-text">  
             Gemini-powered {" "}
           </span>
            click

@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss"
-import daisyui from "daisyui"
+import daisyui from "daisyui";
 
 const config = {
   darkMode: ["class"],
@@ -75,11 +75,29 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), daisyui],
+  plugins: [require("tailwindcss-animate"), require("daisyui")],
 
   daisyui: {
-    themes: ["night", "light", "dark", "coderes"],
-  }
+    themes: ["night", "light", "dark", 
+      { 
+        coderes: {
+          ...require("daisyui/src/theming/themes")["night"],
+        "color-scheme": "dark",
+        primary: "#38bdf8",
+        //primary: "#586fa1",
+        "secondary": "#818CF8",
+        "accent": "#F471B5",
+        "neutral": "#1E293B",
+        "base-100": "#0F172A",
+        "info": "#0CA5E9",
+        "info-content": "#000000",
+        "success": "#2DD4BF",
+        "warning": "#F4BF50",
+        "error": "#FB7085",
+        },
+      },
+    ],
+  },
 } satisfies Config
 
 export default config

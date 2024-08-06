@@ -9,10 +9,10 @@ export default function LandingPage(){
             <Navbar/>
             <LandingHero/>
            
-            <div className = "rounded-lg">
+            <div className = "rounded-lg bg-[#233150]">
                 <FeaturesGrid/>
             </div>
-            <div className ="text-gray-300">
+            <div className ="text-gray-300 pt-10">
                 <Footer/>
 
             </div>
@@ -22,4 +22,7 @@ export default function LandingPage(){
     )
 }
 
+//#28395c 
 //bg-[#1f293f]
+//#d3dbed
+//#586fa1

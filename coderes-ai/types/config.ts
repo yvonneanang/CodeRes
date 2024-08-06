@@ -28,10 +28,6 @@ export interface ConfigProps {
   appName: string;
   appDescription: string;
   domainName: string;
-  crisp: {
-    id?: string;
-    onlyShowOnRoutes?: string[];
-  };
   
   colors: {
     theme: Theme;
