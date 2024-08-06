@@ -47,59 +47,41 @@ const features = [
     ),
   },
   {
-    title: "Generate code for multiple plots in a single figure",
-    description: "Users upvote features they want. You know what to ship next.",
+    title: "Multi-packed Code: One Figure, Multiple Plots",
+    description: "Generate code for multiple plots from a single figure",
     styles: "md:col-span-2 bg-base-300 text-base-content",
     //styles: "md:col-span-2 bg-gradient-to-r from-purple-700 to-pink-700",
     demo: (
-      <div className="px-6 max-w-[600px] flex flex-col gap-4 overflow-hidden">
+      //<div className="px-6 max-w-[600px] flex flex-col gap-4 overflow-hidden">
+      <div className="px-6 flex flex-col gap-4 overflow-hidden">
         {[
           {
-            text: "Add LemonSqueezy integration to the boilerplate",
-            secondaryText: "Yes, ship this! ✅",
-            votes: 48,
+            //source: "/code-blocks/code-block-1.png",
+            code: "# Plot the heatmap\n  " + 
+                  "data = np.random.rand(27, 30)\n  "  +
+                  "fig,ax=plt.subplots(figsize=(10,10))\n  " +
+                  "sns.heatmap(data, annot=Flase, cmap='viridis', ax=ax)",
             transition: "group-hover:-mt-36 group-hover:md:-mt-28 duration-500",
           },
           {
-            text: "A new pricing table for metered billing",
-            secondaryText: "Maybe ship this 🤔",
-            votes: 12,
+            //source:"/code-blocks/code-block-2.png",
+            code: "# Create the dendogram\n  " +
+                  "Z = np.random.rand(27, 27)" + 
+                  "fig, ax = plt.subplots(figsize=(5,5))\n  " +  
+                  "dendogram=dendogram(Z, orientation='right', labels=labels)",
           },
-          {
-            text: "A new UI library for the dashboard",
-            secondaryText: "But don't ship that ❌",
-            votes: 1,
-          },
+          
         ].map((feature, i) => (
           <div
             className={`p-4 bg-base-100 text-base-content rounded-box flex justify-between mb-2 gap-4 ${feature?.transition}`}
             key={i}
           >
-            <div>
-              <p className="font-semibold mb-1">{feature.text}</p>
-              <p className="text-base-content-secondary">
-                {feature.secondaryText}
-              </p>
+
+            <div className="mockup-code text-sm">
+              <pre>
+                <code>{feature.code}</code>
+              </pre>
             </div>
-            <button
-              className={`px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent bg-primary text-primary-content`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`w-5 h-5 ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0`}
-              >
-                <path d="m18 15-6-6-6 6" />
-              </svg>
-              {feature.votes}
-            </button>
           </div>
         ))}
       </div>
@@ -107,7 +89,7 @@ const features = [
   },
   {
     title: "Get code in multiple languages",
-    description: "Customize your Insighto board with 7 themes.",
+    description: "Python, Matlab, R, C++, Java",
     styles: "md:col-span-2 bg-base-100 text-base-content",
     demo: (
       <div className="flex left-0 w-full h-full pt-0 lg:pt-8 overflow-hidden -mt-4">
