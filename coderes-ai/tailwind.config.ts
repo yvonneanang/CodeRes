@@ -83,7 +83,8 @@ const config = {
         coderes: {
           ...require("daisyui/src/theming/themes")["night"],
         "color-scheme": "dark",
-        primary: "#38bdf8",
+        //primary: "#38bdf8",
+        primary: "#6d28d9",
         //primary: "#586fa1",
         "secondary": "#818CF8",
         "accent": "#F471B5",

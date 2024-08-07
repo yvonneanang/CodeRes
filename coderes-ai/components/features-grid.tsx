@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import Image from "next/image";
+import { FileCode2 } from "lucide-react";
 
 const features = [
   {
@@ -50,7 +51,7 @@ const features = [
     title: "Multi-packed Code: One Figure, Multiple Plots",
     description: "Generate code for multiple plots from a single figure",
     styles: "md:col-span-2 bg-base-300 text-base-content",
-    //styles: "md:col-span-2 bg-gradient-to-r from-purple-700 to-pink-700",
+    //styles: "md:col-span-2 text-black bg-gradient-to-r from-purple-100 to-pink-100",
     demo: (
       //<div className="px-6 max-w-[600px] flex flex-col gap-4 overflow-hidden">
       <div className="px-6 flex flex-col gap-4 overflow-hidden">
@@ -76,7 +77,6 @@ const features = [
             className={`p-4 bg-base-100 text-base-content rounded-box flex justify-between mb-2 gap-4 ${feature?.transition}`}
             key={i}
           >
-
             <div className="mockup-code text-sm">
               <pre>
                 <code>{feature.code}</code>
@@ -89,88 +89,75 @@ const features = [
   },
   {
     title: "Get code in multiple languages",
-    description: "Python, Matlab, R, C++, Java",
+    description: "Python, Matlab, R, Java, C++",
     styles: "md:col-span-2 bg-base-100 text-base-content",
     demo: (
       <div className="flex left-0 w-full h-full pt-0 lg:pt-8 overflow-hidden -mt-4">
         <div className="-rotate-[8deg] flex min-w-max overflow-x-visible h-full lg:pt-4">
           {[
             {
-              buttonStyles: "bg-primary text-primary-content",
-              css: "-ml-1 rotate-[6deg] w-72 h-72 z-30 bg-base-200 text-base-content rounded-2xl group-hover:-ml-64 group-hover:opacity-0 group-hover:scale-75 transition-all duration-500 p-4",
+              language:"Python",
+              
+              code_one:"fig, ax = plt.subplots(figsize=(5,5))\n   " + "sns.scatter(x, y, s-10, c= np.random.rand(1000), alpha=0.5)",
+              code_two:"fig, ax = plt.subplots(figsize=(10, 6))\n  " + "sns.heatmap(data, ax=ax, cmap='viridis', annot=False",
+              //css: "-ml-1 rotate-[6deg] w-72 h-72 z-30 bg-base-200 text-base-content rounded-2xl group-hover:-ml-64 group-hover:opacity-0 group-hover:scale-75 transition-all duration-500 p-4",
+              css: "-ml-1 rotate-[6deg] w-80 h-80 z-30 bg-gradient-to-b from-blue-500 via-violet-500 to-pink-500 text-base-content rounded-2xl group-hover:-ml-64 group-hover:opacity-0 group-hover:scale-75 transition-all duration-500 p-3.5 border-2 border-violet-950",
             },
             {
-              buttonStyles: "bg-secondary text-secondary-content",
-              css: "rotate-[6deg] bg-base-200 text-base-content w-72 h-72 -mr-20 -ml-20 z-20 rounded-xl p-4",
+              language:"Matlab",
+              code_one:"figure('Position', [100, 100, 500, 500]);\n   " + "scatter(x, y, 10, rand(1000, 1), 'filled', 'MarkerFaceAlpha', 0.5)",
+              code_two:"figure('Position', [100, 100, 1000, 600]);\n  " + "ax = axes;\n  " + "heatmap(ax, data, 'Colormap', viridis, 'CellLabelColor', 'none')",
+              css: "rotate-[6deg] bg-gradient-to-b from-blue-500 via-violet-500 to-pink-500 text-base-content w-80 h-80 -mr-20 -ml-20 z-20 rounded-xl p-3.5 border-2 border-violet-950 shadow-md",
             },
             {
-              buttonStyles: "bg-accent text-accent-content",
-              css: "rotate-[6deg] bg-base-200 text-base-content z-10 w-72 h-72 rounded-xl p-4",
+              language:"R",
+              code_one:"library(ggplot2)\n   " + "fig <- ggplot()+\n    " + 
+                        "geom_point(aes(x = x, y = y), size = 10, alpha = 0.5, color = rgb(runif(1000), runif(1000), runif(1000)))",
+              code_two:"data_melted <- melt(data)\n   " + "ggplot(data_melted, aes(Var1, Var2, fill=value)) + \n  " + 
+                        "geom_tile() + scale_fill_viridis_c() + theme_minimal()\n " + 
+                        "theme(axis.text.x = element_text(angle=45, hjust=1))",
+
+              css: "rotate-[6deg] bg-gradient-to-b from-blue-500 via-violet-500 to-pink-500 text-base-content z-10 w-80 h-80 rounded-xl p-3.5 border-2 border-violet-950",
             },
             {
-              buttonStyles: "bg-neutral text-neutral-content",
-              css: "rotate-[6deg] bg-base-200 text-base-content w-72 h-72 -ml-20 rounded-xl p-4",
+              language: "Java",
+              code_one:"g.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.5f));\n  " + "g.fillOval(x,y, 10, 10);\n   ",
+              code_two:"JFrame frame = new JFrame('Heatmap'); \n  " + "frame.setSize(800, 600);\n   " + "XYDataset dataset = createDataset();\n  "+ 
+                        "JFreeChart chart = ChartFactory.createXYLineChart('Heatmap', 'X-Axis', 'Y-Axis', dataset, PlotOrientation.VERTICAL, false, true, false)",
+              css: "rotate-[6deg] bg-gradient-to-b from-blue-500 via-violet-500 to-pink-500 text-base-content w-80 h-80 -ml-20 rounded-xl p-3.5 border-2 border-violet-950",
             },
             {
-              buttonStyles: "bg-base-100 text-base-content",
-              css: "rotate-[6deg] bg-base-200 text-base-content w-72 h-72 -ml-10 -z-10 rounded-xl p-4 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300",
+              language: "C++",
+              code_one:"",
+              code_two:"",
+              css: "rotate-[6deg] bg-gradient-to-b from-blue-500 via-violet-500 to-pink-500 text-base-content w-80 h-80 -ml-10 -z-10 rounded-xl p-4 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 border-2 border-violet-950",
             },
-          ].map((theme, i) => (
-            <div className={theme.css} key={i}>
-              <div className="font-medium uppercase tracking-wide text-base-content/60 text-sm mb-3">
-                Trending feedback
+          ].map((feature, i) => (
+            <div className={feature.css} key={i}>
+              {/* <div className="font-medium uppercase tracking-wide text-base-content/60 text-sm mb-3 flex justify-end"> */}
+              <div className="font-medium uppercase tracking-wide text-white text-sm mb-3 flex justify-end">
+                <FileCode2 className="mr-2"/>
+                {feature.language}
               </div>
               <div className="space-y-2">
-                <div className="p-4 bg-base-100 rounded-box flex justify-between">
-                  <div>
-                    <p className="font-semibold mb-1">Clickable cards</p>
-                    <p className="opacity-80">Make cards more accessible</p>
-                  </div>
-                  <button
-                    className={`px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent ${theme.buttonStyles}`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={`w-5 h-5 ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0`}
-                    >
-                      <path d="m18 15-6-6-6 6" />
-                    </svg>
-                    8
-                  </button>
+                <div className="mockup-code text-sm pl-0.5">
+                  <pre>
+                      <code> {feature.code_one} </code>
+                  </pre>
                 </div>
-                <div className="p-4 bg-base-100 rounded-box flex justify-between ">
-                  <div>
-                    <p className="font-semibold mb-1">Bigger images</p>
-                    <p className="opacity-80">Make cards more accessible</p>
-                  </div>
-                  <button
-                    className={`px-4 py-2 rounded-box group text-center text-lg duration-150 border border-transparent ${theme.buttonStyles}`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={`w-5 h-5 ease-in-out duration-150 -translate-y-0.5 group-hover:translate-y-0`}
-                    >
-                      <path d="m18 15-6-6-6 6" />
-                    </svg>
-                    5
-                  </button>
+
+                <div className="mockup-code text-sm">
+                  <pre>
+                      <code> {feature.code_two} </code>
+                  </pre>
                 </div>
+
+                <div className="mockup-code text-sm">
+                  <pre>
+                      <code> {feature.code_two} </code>
+                    </pre>
+                </div>
+
               </div>
             </div>
           ))}

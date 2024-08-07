@@ -32,6 +32,60 @@ sns.heatmap(data, ax=ax, cmap="viridis", annot=False)\
 fig, ax = plt.subplots(figsize=(5, 5))\
 ax.scatter(x, y, s=10, c=np.random.rand(1000), alpha=0.5)\
 \
+\'97\'97-Matlab heat map\'97\
+figure('Position', [100, 100, 1000, 600]);\
+ax = axes;\
+heatmap(ax, data, 'Colormap', viridis, 'CellLabelColor', 'none');\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+\'97\'97\'97\'97\'97\'97Java heat map \'97\'97\'97\'97\'97\'97\
+import javax.swing.*;\
+import org.jfree.chart.ChartFactory;\
+import org.jfree.chart.ChartPanel;\
+import org.jfree.chart.JFreeChart;\
+import org.jfree.chart.plot.PlotOrientation;\
+import org.jfree.data.xy.XYDataset;\
+import org.jfree.data.xy.XYSeries;\
+import org.jfree.data.xy.XYSeriesCollection;\
+\
+public class HeatmapExample \{\
+    public static void main(String[] args) \{\
+        JFrame frame = new JFrame("Heatmap Example");\
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\
+        frame.setSize(800, 600);\
+\
+        XYDataset dataset = createDataset();\
+        JFreeChart chart = ChartFactory.createXYLineChart(\
+                "Heatmap",\
+                "X-Axis",\
+                "Y-Axis",\
+                dataset,\
+                PlotOrientation.VERTICAL,\
+                false,\
+                true,\
+                false\
+        );\
+\
+        ChartPanel chartPanel = new ChartPanel(chart);\
+        frame.add(chartPanel);\
+        frame.setVisible(true);\
+    \}\
+\
+    private static XYDataset createDataset() \{\
+        XYSeriesCollection dataset = new XYSeriesCollection();\
+        XYSeries series = new XYSeries("Data");\
+\
+        // Add data points to the series\
+        // Example: series.add(x, y);\
+        \
+        dataset.addSeries(series);\
+        return dataset;\
+    \}\
+\}\
+\
+\'97\'97\'97\'97\'97\
+\
 # Create the survival analysis plot\
 fig, ax = plt.subplots(figsize=(10, 6))\
 ax.step(time, event, where='post', label='Survival curve')\
