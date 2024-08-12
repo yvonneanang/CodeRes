@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CodeRes.ai",
-  description: "AI Platform",
+  description: "Web-based AI app",
 };
 
 export default function RootLayout({

@@ -20,13 +20,13 @@ const links= [
 
     {
         name: "Features",
-        path: "/features",
+        path: "#features",
     },
 
-    {
-        name: "FAQs",
-        path: "/faqs",
-    },
+    // {
+    //     name: "FAQs",
+    //     path: "/faqs",
+    // },
 
     {
         name: "Contact", 

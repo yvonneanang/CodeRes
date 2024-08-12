@@ -72,7 +72,7 @@ Updates to the Privacy Policy
 We may update this Privacy Policy from time to time. Users are responsible for reviewing the Privacy Policy periodically to stay informed of any changes. Continued use of the Website after any updates constitutes acceptance of the new Privacy Policy.
 
 Contact Information
-If you have any questions or concerns, please contact us at yonnie@coderes.ai or yonneanang@gmail.com.
+If you have any questions or concerns, please contact us at yonneanang@gmail.com.
 
 By using our Website, you acknowledge that you have read, understood, and agree to this Privacy Policy.
 

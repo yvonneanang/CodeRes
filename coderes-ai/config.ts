@@ -4,7 +4,7 @@ import { ConfigProps } from "@/types/config";
 const config = {
   appName: "CodeRes.ai",
   appDescription:
-    "Get code for scientific figures in minutes",
+    "Get code for scientific figures with a click",
   domainName: "CodeRes.ai",
 
  

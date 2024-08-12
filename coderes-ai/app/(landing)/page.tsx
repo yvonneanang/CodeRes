@@ -9,8 +9,9 @@ export default function LandingPage(){
             <Navbar/>
             <LandingHero/>
            
-            <div className = "rounded-lg bg-[#233150]">
+            <div className = "rounded-lg bg-[#233150]" id = "features">
                 <FeaturesGrid/>
+                
             </div>
             <div className ="text-gray-300 pt-10">
                 <Footer/>

@@ -24,7 +24,7 @@ export const LandingHero = () => {
             </div>
 
             <div className="text-sm md:text-xl font-light text-zinc-400">
-                Replicate computational piplines used to generate figures in published papers with a Gemini-powered click.
+                Get a headstart in replicating computational piplines used to generate figures in scientific papers with a Gemini-powered click.
             </div>
 
             <div>
