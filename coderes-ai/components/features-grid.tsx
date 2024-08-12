@@ -61,7 +61,7 @@ const features = [
             code: "# Plot the heatmap\n  " + 
                   "data = np.random.rand(27, 30)\n  "  +
                   "fig,ax=plt.subplots(figsize=(10,10))\n  " +
-                  "sns.heatmap(data, annot=Flase, cmap='viridis', ax=ax)",
+                  "sns.heatmap(data, annot=False, cmap='viridis', ax=ax)",
             transition: "group-hover:-mt-36 group-hover:md:-mt-28 duration-500",
           },
           {
@@ -174,19 +174,12 @@ const features = [
         {[
           {
             id: 1,
-            text: "Can we have a feature to add a custom domain to IndiePage?",
-            userImg:
-              "https://pbs.twimg.com/profile_images/1514863683574599681/9k7PqDTA_400x400.jpg",
-            userName: "Marc Lou",
-            createdAt: "2024-09-01T00:00:00Z",
+            text: "Plot 1 (Heatmap with dendogram): This plot shows the heatmap of single-cell metrics across different cellular metaclusters....",
+            
           },
           {
             id: 2,
-            text: "I'd definitelly pay for that 🤩",
-            userImg:
-              "https://pbs.twimg.com/profile_images/1778434561556320256/knBJT1OR_400x400.jpg",
-            userName: "Dan K.",
-            createdAt: "2024-09-02T00:00:00Z",
+            text: "Plot 2 (Scatter plot): This plot represents the t-SNE embedding of cells in a 2-dimensional space. Each dot represents a cell, and its represents its assigned cluster.",
             transition:
               "opacity-0 group-hover:opacity-100 duration-500 translate-x-1/4 group-hover:translate-x-0",
           },
@@ -195,25 +188,8 @@ const features = [
             key={reply.id}
             className={`px-6 py-4 bg-neutral-content text-neutral rounded-box ${reply?.transition}`}
           >
-            <div className="mb-2 whitespace-pre-wrap">{reply.text}</div>
-            <div className="text-neutral/80 flex items-center gap-2 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="avatar">
-                  <div className="w-7 rounded-full">
-                    <img src={reply.userImg} alt={reply.userName} />
-                  </div>
-                </div>
-                <div className=""> {reply.userName} </div>
-              </div>
-              •
-              <div>
-                {new Date(reply.createdAt).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </div>
-            </div>
+            <div className="mb-2 whitespace-pre-wrap text-sm">{reply.text}</div>
+            
           </div>
         ))}
       </div>
