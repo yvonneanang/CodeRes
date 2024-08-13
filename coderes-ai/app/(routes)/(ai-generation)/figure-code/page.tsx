@@ -1,6 +1,5 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
 import { useState } from 'react';
 import { FileImage, FileCode2 } from 'lucide-react';
 import Link from 'next/link';
@@ -76,7 +75,7 @@ export default function FigureCodePage(){
     }
 
     return (
-        <Suspense>
+        
         <div>
             <Navbar/>
             <div className="border border-b-0 border-gray-500"></div>
@@ -155,7 +154,7 @@ export default function FigureCodePage(){
             
             
         </div>
-        </Suspense>
+        
     )
 }
 
