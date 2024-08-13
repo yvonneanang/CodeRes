@@ -76,6 +76,7 @@ export default function FigureCodePage(){
     }
 
     return (
+        <Suspense>
         <div>
             <Navbar/>
             <div className="border border-b-0 border-gray-500"></div>
@@ -111,10 +112,7 @@ export default function FigureCodePage(){
                     </div>
 
                     <div className = "col-span-4">
-                        <Suspense>
-                            <ViewFile fileUrl={fileUrl}/>
-                        </Suspense>
-                        
+                        <ViewFile fileUrl={fileUrl}/>
                     </div>
                     
                     <div className="text-black col-span-3">
@@ -157,6 +155,7 @@ export default function FigureCodePage(){
             
             
         </div>
+        </Suspense>
     )
 }
 
