@@ -1,5 +1,6 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { useState } from 'react';
 import { FileImage, FileCode2 } from 'lucide-react';
 import Link from 'next/link';
@@ -110,7 +111,10 @@ export default function FigureCodePage(){
                     </div>
 
                     <div className = "col-span-4">
-                        <ViewFile fileUrl={fileUrl}/>
+                        <Suspense>
+                            <ViewFile fileUrl={fileUrl}/>
+                        </Suspense>
+                        
                     </div>
                     
                     <div className="text-black col-span-3">
