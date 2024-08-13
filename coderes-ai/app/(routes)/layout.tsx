@@ -1,3 +1,6 @@
+'use client';
+import {Suspense } from 'react';
+
 export default function UploadLayout({
     children
 }: {
@@ -7,7 +10,10 @@ export default function UploadLayout({
     return(
         <main className="h-full bg-[#111827] overflow-auto">
             <div className="mx-auto max-w-screen-xl h-full w-full">
-                {children}
+                <Suspense fallback={null}>
+                    {children}
+                </Suspense>
+                
             </div>
         </main>
     )

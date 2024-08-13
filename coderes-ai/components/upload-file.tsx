@@ -1,6 +1,5 @@
 "use client";
 import { useState, ChangeEvent } from 'react';
-import { Suspense } from 'react';
 import Link from "next/link";
 
 import { Button } from '@/components/ui/button';
@@ -57,13 +56,12 @@ export const UploadFile = () => {
         <>
           <div className="border-b border-white-900/10 pb-12">
             <div className="p-4">
-              <Suspense>
                 <Link href={`/figure-code?fileUrl=${encodeURIComponent(fileUrl)}`}>
                     <Button variant="premium" className="md:text-md p-4 md:p-4 rounded-md font-semibold">
                         Get Code!
                     </Button>
                 </Link>
-              </Suspense>
+              
             </div>
             <p className = "py-3">File Preview: </p>
             <ViewFile fileUrl={fileUrl}/>
